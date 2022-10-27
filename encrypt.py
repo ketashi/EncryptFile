@@ -1,4 +1,4 @@
-#!/usr/bin/pyrhon3
+#!/usr/bin/python3
 import sys,signal,argparse,os,string,secrets,pdb,base64
 from cryptography.fernet import Fernet
 from pwn import *
@@ -11,24 +11,25 @@ def def_handler(sig,frame):
 signal.signal(signal.SIGINT, def_handler)
 
 #validar
-if len(sys.argv) < 2:
-    log.info("Uso: python3 %s -h" % sys.argv[0])
-    sys.exit(1)
+#if len(sys.argv) < 2:
+ #   log.info("Uso: python3 %s -h" % sys.argv[0])
+  #  sys.exit(1)
 
 #validar input
-text = "Uso: python3 %s --encrypt <archivo_a_encryptar> or --decrypt <archivo_a_desencriptar> or --dencrypt <ruta_de_carpeta_encriptar>" % sys.argv[0] 
-parser = argparse.ArgumentParser(description = text)
-parser.add_argument("--encrypt", help = "archivo a encriptar")
-parser.add_argument("--decrypt", help = "archivo a desencriptar")
-parser.add_argument("--dencrypt", help = "ruta de directorio que desea encriptar")
-parser.add_argument("--ddecrypt", help = "ruta de directorio que desea desencriptar")
-args = parser.parse_args() 
+#text = "Uso: python3 %s --encrypt <archivo_a_encryptar> or --decrypt <archivo_a_desencriptar> or --dencrypt <ruta_de_carpeta_encriptar>" % sys.argv[0] 
+#parser = argparse.ArgumentParser(description = text)
+#parser.add_argument("--encrypt", help = "archivo a encriptar")
+#parser.add_argument("--decrypt", help = "archivo a desencriptar")
+#parser.add_argument("--dencrypt", help = "ruta de directorio que desea encriptar")
+#parser.add_argument("--ddecrypt", help = "ruta de directorio que desea desencriptar")
+#args = parser.parse_args() 
 
 #variables globales
-file_e = args.encrypt
-file_d = args.decrypt
-dir_e = args.dencrypt
-dir_d = args.ddecrypt
+#file_e = args.encrypt
+#file_d = args.decrypt
+#dir_e = args.dencrypt
+#dir_d = args.ddecrypt
+
 #Generar Claves
 def key_gen():
     
@@ -81,7 +82,8 @@ def decryption_file(master,file_d):
 
 #encriptar carpeta de archivos
 def dencryption_file(master):
-    for root, dirs, files in os.walk(dir_e):
+    
+    for root, dirs, files in os.walk("./Prueba"):
         for file in files:
             file_path = os.path.join(root, file)
             encryption_file(master,file_path)
@@ -109,17 +111,17 @@ if __name__ == "__main__":
     master = Fernet(key)
     
     #Encriptar archivo 
-    if args.encrypt:
-        encryption_file(master,file_e) 
+    #if args.encrypt:
+     #   encryption_file(master,file_e) 
     
     #Desencriptar archivo   
-    if args.decrypt:
-        decryption_file(master,file_d)
+    #if args.decrypt:
+     #   decryption_file(master,file_d)
     
     #Encriptar directorios
-    if args.dencrypt:
-        dencryption_file(master)
-
+    #if args.dencrypt:
+    dencryption_file(master)
     #Desencriptar directorios
-    if args.ddecrypt:
-        ddecryption_file(master)
+    #if args.ddecrypt:
+     #   ddecryption_file(master)
+
